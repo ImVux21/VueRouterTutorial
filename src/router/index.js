@@ -1,0 +1,45 @@
+import { createRouter, createWebHistory } from "vue-router"
+import HomeView from "../views/HomeView.vue"
+import AboutView from "../views/AboutView.vue"
+import CarView from '../views/CarView.vue'
+import ContactView from "../views/ContactView.vue"
+import NotFoundView from "../views/NotFoundView.vue"
+
+const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [
+        {
+            path: "/",
+            name: "Home",
+            component: HomeView
+        },
+        {
+            path: "/home",
+            redirect: "/"
+        },
+        {
+            path: "/about",
+            name: "About",
+            component: AboutView
+        },
+        {
+            path: "/cars/:carId",
+            name: "Car",
+            component: CarView,
+            children: [
+                {
+                    path: "contact",
+                    name: "Contact",
+                    component: ContactView
+                }
+            ]
+        },
+        {
+            path: "/:catchAll(.*)*",
+            name: "NotFound",
+            component: NotFoundView
+        }
+    ]
+})
+
+export default router
